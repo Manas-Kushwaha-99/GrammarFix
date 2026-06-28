@@ -71,9 +71,7 @@ async fn fix_grammar(text: String) -> Result<String, String> {
         return Err("No API key set. Click the settings icon to add one.".into());
     }
 
-    let url = format!(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent"
-    );
+    let url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent";
 
     let body = serde_json::json!({
         "systemInstruction": {
@@ -93,7 +91,7 @@ async fn fix_grammar(text: String) -> Result<String, String> {
 
     let client = reqwest::Client::new();
     let response = client
-        .post(&url)
+        .post(url)
         .header("Content-Type", "application/json")
         .header("x-goog-api-key", &api_key)
         .json(&body)
@@ -136,8 +134,6 @@ pub fn run() {
             None,
         ))
         .setup(|app| {
-            println!("[GrammarFix] App setup starting...");
-
             // ── System Tray ──
             let show_item = MenuItemBuilder::with_id("show", "Show").build(app)?;
             let close_item = MenuItemBuilder::with_id("close", "Close").build(app)?;
@@ -147,11 +143,8 @@ pub fn run() {
                 .item(&close_item)
                 .build()?;
 
-            let tray_icon = app.default_window_icon().unwrap().clone();
-            println!("[GrammarFix] Tray icon loaded: {}x{}", tray_icon.width(), tray_icon.height());
-
             let _tray = TrayIconBuilder::new()
-                .icon(tray_icon)
+                .icon(app.default_window_icon().unwrap().clone())
                 .menu(&menu)
                 .on_menu_event(move |app, event| match event.id().as_ref() {
                     "show" => {
@@ -183,15 +176,11 @@ pub fn run() {
                 })
                 .build(app)?;
 
-            println!("[GrammarFix] System tray initialized");
-
             // ── Global Shortcut: Alt+P ──
             let shortcut = Shortcut::new(Some(Modifiers::ALT), Code::KeyP);
-            println!("[GrammarFix] Registering shortcut: Alt+P");
-            match app.global_shortcut().on_shortcut(
+            let _ = app.global_shortcut().on_shortcut(
                 shortcut,
                 |app, _shortcut, event| {
-                    println!("[GrammarFix] Shortcut event received: {:?}", event.state);
                     if event.state == tauri_plugin_global_shortcut::ShortcutState::Pressed {
                         if let Some(w) = app.get_webview_window("main") {
                             let _ = w.show();
@@ -200,10 +189,7 @@ pub fn run() {
                         }
                     }
                 },
-            ) {
-                Ok(_) => println!("[GrammarFix] Global shortcut Alt+P registered successfully"),
-                Err(e) => eprintln!("[GrammarFix] FAILED to register global shortcut: {}", e),
-            }
+            );
 
             // ── Minimize to tray on close ──
             let window = app.get_webview_window("main").unwrap();
@@ -215,7 +201,6 @@ pub fn run() {
                 }
             });
 
-            println!("[GrammarFix] App setup complete");
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

@@ -8,12 +8,12 @@ A lightweight Tauri-based grammar correction tool that lives in your system tray
 - **System tray** — minimizes to tray, never gets in the way
 - **Global shortcut** — `Alt+P` to show/hide from anywhere
 - **Auto-copy** — corrected text is automatically copied to clipboard
-- **Auto-start** — optional launch on Windows startup
+- **Auto-start** — optional launch on Windows startup (toggle in settings)
 - **Lightweight** — minimal resource usage, fast startup
 
 ## Download
 
-Grab the latest `GrammarFix.exe` from the [`release/`](release/) folder.
+Download the latest `GrammarFix.exe` from [Releases](https://github.com/Manas-Kushwaha-99/GrammarFix/releases).
 
 ## Usage
 
@@ -22,14 +22,12 @@ Grab the latest `GrammarFix.exe` from the [`release/`](release/) folder.
 3. Paste your text and click **Fix Grammar** (or `Ctrl+Enter`)
 4. Corrected text is auto-copied — paste it wherever you need
 
-### Shortcuts
+### Keyboard Shortcuts
 
 | Shortcut | Action |
 |----------|--------|
-| `Alt+P` | Show/hide window |
+| `Alt+P` | Show/hide window from tray |
 | `Ctrl+Enter` | Fix grammar |
-| `✕` button | Minimize to tray |
-| Tray → Close | Quit app |
 
 ## Building from Source
 
@@ -62,4 +60,4 @@ API key is stored at `%AppData%/GrammarFix/config.json`.
 
 ## License
 
-MIT
+[MIT](LICENSE)
