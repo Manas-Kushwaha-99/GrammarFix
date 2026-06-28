@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Rust build artifacts
+src-tauri/target/
+src-tauri/gen/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Keep release folder for GitHub releases
+!release/

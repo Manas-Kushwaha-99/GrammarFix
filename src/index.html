@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrammarFix</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Title Bar -->
+    <header id="titlebar" data-tauri-drag-region>
+      <div class="titlebar-left" data-tauri-drag-region>
+        <span class="logo">G</span>
+        <span class="title" data-tauri-drag-region>GrammarFix</span>
+      </div>
+      <div class="titlebar-actions">
+        <button id="settings-btn" title="Settings">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-7.07-2.93l2.83-2.83m8.49-8.49l2.83-2.83M1 12h4m14 0h4M4.93 4.93l2.83 2.83m8.49 8.49l2.83 2.83"/></svg>
+        </button>
+        <button id="close-btn" title="Minimize to tray">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="content">
+      <!-- Settings Panel -->
+      <div id="settings-panel" class="hidden">
+        <label for="api-key-input">Gemini API Key</label>
+        <div class="settings-row">
+          <input type="password" id="api-key-input" placeholder="Paste your API key..." spellcheck="false" />
+          <button id="save-key-btn">Save</button>
+        </div>
+        <span id="key-status"></span>
+        <div class="settings-divider"></div>
+        <div class="settings-toggle-row">
+          <span class="toggle-label">Launch on startup</span>
+          <button id="autostart-toggle" class="toggle-switch" role="switch" aria-checked="false">
+            <span class="toggle-knob"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="field-group">
+        <label class="field-label">Input</label>
+        <textarea id="input-text" placeholder="Paste your text here..." spellcheck="false"></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div id="actions">
+        <button id="fix-btn">
+          <span class="btn-content">
+            <svg class="btn-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="btn-text">Fix Grammar</span>
+          </span>
+          <span class="btn-hint">Ctrl + Enter</span>
+        </button>
+        <button id="clear-btn">Clear</button>
+      </div>
+
+      <!-- Output -->
+      <div class="field-group">
+        <div class="field-header">
+          <label class="field-label">Result</label>
+          <button id="copy-btn" title="Copy to clipboard">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+        <textarea id="result-text" placeholder="Corrected text will appear here..." readonly></textarea>
+      </div>
+
+      <!-- Status -->
+      <div id="status-bar">
+        <span id="status">Ready</span>
+        <span id="shortcut-hint">Alt + P to toggle</span>
+      </div>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
